@@ -38,13 +38,12 @@ public class TrieBuilder {
 		
 			InputStream inputStream=null;
 			try {
-				ClassPathResource resource = new ClassPathResource("/SearchService/list.txt");
+				ClassPathResource resource = new ClassPathResource("/SearchService/WordList.txt");
 				inputStream = resource.getInputStream();
 				InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
 				BufferedReader reader = new BufferedReader(streamReader);
 				while((str = reader.readLine()) != null) {
 					String st = str.replaceAll("[^a-z]", "").trim();
-					System.out.println(st);
 					trie.addWordToTrie(st);
 				}
 			} catch (FileNotFoundException e) {
@@ -53,11 +52,6 @@ public class TrieBuilder {
 				System.out.println(e.getMessage());
 			}
 			System.out.println("Adding words to trie");
-//			String[] words = {"and", "port", "and", "joke", "an"};
-//			for(int i = 0; i < words.length; i++) {
-//				String st = words[i].replaceAll("[^a-z]", "").trim();
-//				trie.addWordToTrie(st);
-//			}
 	}
 	
 }

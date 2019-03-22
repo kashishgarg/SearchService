@@ -1,5 +1,7 @@
 package SearchService.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,12 @@ public class SearchServiceController {
 	public boolean searchOptions(@PathVariable("searchKeyword") String searchKeyword) {
 		
 		return searchService.searchSuggestions(searchKeyword);
+	}
+	
+	@RequestMapping(value="/suggestions/{prefix}", method=RequestMethod.GET)
+	public List<String> giveSuggestions(@PathVariable("prefix") String prefix) {
+		
+		return searchService.giveSuggestions(prefix);
 	}
 	
 }
