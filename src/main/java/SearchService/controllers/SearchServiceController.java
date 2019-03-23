@@ -24,7 +24,6 @@ public class SearchServiceController {
 	
 	@RequestMapping(value="/suggestions/{prefix}", method=RequestMethod.GET)
 	public List<String> giveSuggestions(@PathVariable("prefix") String prefix) {
-		
 		return searchService.giveSuggestions(prefix);
 	}
 	

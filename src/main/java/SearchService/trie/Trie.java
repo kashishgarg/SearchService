@@ -20,6 +20,14 @@ public class Trie {
 		return this.root;
 	}
 	
+	public void clearList() {
+		results.clear();
+	}
+	
+	public List<String> getResults() {
+		return this.results;
+	}
+	
 	public void addWordToTrie(String word) {
 		if(word.length() == 0)
 			return;
@@ -53,19 +61,16 @@ public class Trie {
 		return pCrawl.isWordEnd();
 	}
 	
-	public List<String> searchSuggestionsRec(TrieNode root, String prefix) {
-		if(prefix.length() == 0 || isLastNode(root))
-			return results;
-		if(root.isWordEnd() == true) {
+	public void searchSuggestionsRec(TrieNode root, String prefix) {
+		if(root.isWordEnd() == true) 
 			results.add(prefix);
-		}
+		if(isLastNode(root))
+			return;
 		for(int i = 0;i < ALPHABET_SIZE; i++) {
 			if(root.next[i] != null) {
-				prefix = prefix + (char)(97 + i);
-				searchSuggestionsRec(root.next[i], prefix);
+				searchSuggestionsRec(root.next[i], prefix + (char)(97 + i));
 			}
 		}
-		return results;
 	}
 	
 	private boolean isLastNode(TrieNode pcrawl) {
@@ -74,6 +79,16 @@ public class Trie {
 				return false;
 		}
 		return true;
+	}
+	
+	public TrieNode getPrefixNode(String prefix) throws NullPointerException {
+		TrieNode pCrawl = new TrieNode(root);
+		int index;
+		for(int i = 0; i < prefix.length(); i++) {
+			index = prefix.charAt(i) - 'a';
+			pCrawl = pCrawl.getNext()[index];
+		}
+		return pCrawl;
 	}
 
 }
